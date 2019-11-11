@@ -21,7 +21,7 @@ class Sample : Form
 
     public Sample()
     {
-        this.Text = "サンプル";
+        this.Text = "takaishi";
         this.Width = 300; this.Height = 150;
 
         tb = new TrackBar();

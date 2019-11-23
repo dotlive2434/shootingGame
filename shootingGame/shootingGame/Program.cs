@@ -6,7 +6,7 @@ using System.IO;
 
 namespace shootinggame
 {
-    class mainProgram : Form
+    partial class mainProgram : Form
     {
         const int w = 800, h = 600;
         const int buttonN = 4;  // ボタンの数
@@ -15,7 +15,7 @@ namespace shootinggame
         // パネル
         private Panel[] panel = new Panel[panelN];
         private const int titleNumber     = 0;
-        private const int gameStartNumber = 1;
+        private const int gameNumber = 1;
         private const int configNumber    = 2;
         private const int listNumber      = 3;
 
@@ -80,36 +80,6 @@ namespace shootinggame
             DrawPage(titleNumber, opening);
         }
 
-        //======================ボタン================================
-        public void bt_Click(Object sender, EventArgs e)
-        {
-            switch (((Button)sender).Text)
-            {
-                case "START":
-                    DrawPage(gameStartNumber);
-                    //game();
-                    break;
-                case "CONFIG":
-                    DrawPage(configNumber);
-                    break;
-                case "SOUNDS-LIST-":
-                    DrawPage(listNumber);
-                    break;
-                case "EXIT":
-                    string msg = "ゲームを終了しますか？";
-                    DialogResult result = MessageBox.Show(msg, "終了", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
-                    {
-                        //timer.Enabled = false;
-                        waveOut.Stop();
-                        waveOut.Dispose();
-                        Application.Exit();
-                    }
-                    break;
-                default: break;
-            }
-        }
-
         //=======================タイトルバック(ゲーム終了)================================
         [System.Security.Permissions.UIPermission(
             System.Security.Permissions.SecurityAction.Demand,
@@ -150,6 +120,37 @@ namespace shootinggame
             }
 
             return base.ProcessDialogKey(keyData);
+        }
+
+        //======================ボタン================================
+        public void bt_Click(Object sender, EventArgs e)
+        {
+            switch (((Button)sender).Text)
+            {
+                case "START":
+                    DrawPage(gameNumber);
+                    this.ActiveControl = panel[gameNumber];
+                    game();
+                    break;
+                case "CONFIG":
+                    DrawPage(configNumber);
+                    break;
+                case "SOUNDS-LIST-":
+                    DrawPage(listNumber);
+                    break;
+                case "EXIT":
+                    string msg = "ゲームを終了しますか？";
+                    DialogResult result = MessageBox.Show(msg, "終了", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        //timer.Enabled = false;
+                        waveOut.Stop();
+                        waveOut.Dispose();
+                        Application.Exit();
+                    }
+                    break;
+                default: break;
+            }
         }
 
         //=====================描画関数==================================
